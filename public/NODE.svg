@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="100" cy="100" r="95" stroke="#000000" stroke-width="2" fill="none"/>
+  <circle cx="100" cy="100" r="85" stroke="#000000" stroke-width="1" fill="none"/>
+  
+  <!-- N -->
+  <path d="M60 70V130H70V90L90 130H100V70H90V110L70 70H60Z" fill="#000000"/>
+  <!-- O -->
+  <path d="M110 70C104.477 70 100 74.4772 100 80V120C100 125.523 104.477 130 110 130H120C125.523 130 130 125.523 130 120V80C130 74.4772 125.523 70 120 70H110ZM110 80H120V120H110V80Z" fill="#000000"/>
+  <!-- D -->
+  <path d="M140 70V130H160C165.523 130 170 125.523 170 120V80C170 74.4772 165.523 70 160 70H140ZM150 80H160V120H150V80Z" fill="#000000"/>
+  <!-- E -->
+  <path d="M180 70V130H210V120H190V105H205V95H190V80H210V70H180Z" fill="#000000"/>
+  
+  <!-- Flame Symbol -->
+  <path d="M100 30C100 30 90 45 90 55C90 65 100 70 100 70C100 70 110 65 110 55C110 45 100 30 100 30Z" fill="#FF0000"/>
+</svg>

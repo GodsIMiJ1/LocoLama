@@ -3,19 +3,159 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Default light theme variables - will be overridden by JS */
+  --background: #f8fafc;
+  --cardBackground: #ffffff;
+  --sidebarBackground: #f1f5f9;
+
+  --primaryText: #0f172a;
+  --secondaryText: #64748b;
+  --tertiaryText: #94a3b8;
+
+  --primary: #3b82f6;
+  --primaryHover: #2563eb;
+  --secondary: #64748b;
+  --secondaryHover: #475569;
+  --success: #10b981;
+  --error: #ef4444;
+  --warning: #f59e0b;
+
+  --border: #e2e8f0;
+  --borderHover: #cbd5e1;
+
+  --userBubble: #3b82f6;
+  --userBubbleText: #ffffff;
+  --assistantBubble: #f1f5f9;
+  --assistantBubbleText: #0f172a;
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadowMedium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadowLarge: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --overlay: rgba(0, 0, 0, 0.5);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: #0f172a;
+  --cardBackground: #1e293b;
+  --sidebarBackground: #0f172a;
+
+  --primaryText: #f8fafc;
+  --secondaryText: #cbd5e1;
+  --tertiaryText: #94a3b8;
+
+  --primary: #3b82f6;
+  --primaryHover: #60a5fa;
+  --secondary: #64748b;
+  --secondaryHover: #94a3b8;
+
+  --border: #334155;
+  --borderHover: #475569;
+
+  --userBubble: #3b82f6;
+  --userBubbleText: #ffffff;
+  --assistantBubble: #334155;
+  --assistantBubbleText: #f8fafc;
+
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadowMedium: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  --shadowLarge: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --overlay: rgba(0, 0, 0, 0.7);
 }
 
 body {
-  color: var(--foreground);
+  color: var(--primaryText);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Toggle Switch Styles */
+.toggle-checkbox {
+  right: 0;
+  z-index: 5;
+  transition: all 0.3s;
+}
+
+.toggle-checkbox:checked {
+  right: 4px;
+  border-color: var(--primary);
+}
+
+.toggle-label {
+  transition: background-color 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+  background-color: var(--primary);
+}
+
+/* Custom component styles */
+@layer components {
+  /* Button styles */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-[var(--primary)] hover:bg-[var(--primaryHover)] text-white focus:ring-[var(--primary)];
+  }
+
+  .btn-secondary {
+    @apply bg-[var(--secondary)] hover:bg-[var(--secondaryHover)] text-white focus:ring-[var(--secondary)];
+  }
+
+  .btn-outline {
+    @apply border border-[var(--border)] hover:border-[var(--borderHover)] bg-transparent text-[var(--primaryText)] hover:bg-[var(--border)];
+  }
+
+  .btn-ghost {
+    @apply bg-transparent hover:bg-[var(--border)] text-[var(--primaryText)];
+  }
+
+  /* Input styles */
+  .input {
+    @apply px-4 py-2 bg-[var(--cardBackground)] border border-[var(--border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:border-[var(--primary)] text-[var(--primaryText)] transition-all duration-200;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-[var(--cardBackground)] rounded-lg border border-[var(--border)] shadow-[var(--shadowMedium)] overflow-hidden;
+  }
+
+  /* Message bubble styles */
+  .message-user {
+    @apply bg-[var(--userBubble)] text-[var(--userBubbleText)] rounded-2xl rounded-br-none p-3 shadow-[var(--shadow)] border border-[var(--userBubble)];
+  }
+
+  .message-assistant {
+    @apply bg-[var(--assistantBubble)] text-[var(--assistantBubbleText)] rounded-2xl rounded-bl-none p-3 shadow-[var(--shadow)] border border-[var(--border)];
+  }
+
+  /* Sidebar styles */
+  .sidebar {
+    @apply bg-[var(--sidebarBackground)] border-r border-[var(--border)] h-full transition-all duration-300;
+  }
+
+  /* Scrollbar styles */
+  .custom-scrollbar {
+    @apply overflow-auto;
+    scrollbar-width: thin;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-[var(--secondary)] rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-[var(--secondaryHover)];
+  }
 }
