@@ -21,9 +21,27 @@ To use LocoLama, you'll need to:
 
 ## Documentation Sections
 
+### Getting Started
+- [Installation Guide](./installation-guide.md) - Detailed installation instructions for all platforms
 - [Ollama Setup Guide](./ollama-setup.md) - How to install and run Ollama with models
 - [Local Chat UI Guide](./local-chat-ui.md) - How to use the chat interface
+- [Frequently Asked Questions (FAQ)](./faq.md) - Answers to common questions
+
+### Features and Usage
+- [Advanced Features Guide](./advanced-features.md) - Detailed explanation of LocoLama's advanced features
 - [Streaming vs. Complete Generation](./streaming-vs-complete.md) - Details on different generation modes
+- [Model Compatibility Guide](./model-compatibility.md) - Information about compatible models and their requirements
+- [Use Cases Guide](./use-cases.md) - Practical applications and workflows for LocoLama
+
+### Optimization and Troubleshooting
+- [Performance Optimization Guide](./performance-optimization.md) - Tips for maximizing performance
+- [Troubleshooting Guide](./troubleshooting.md) - Solutions for common issues
+- [Security and Privacy Guide](./security-privacy.md) - Information about LocoLama's privacy features
+
+### Advanced Topics
+- [Prompt Engineering Guide](./prompt-engineering.md) - Techniques for crafting effective prompts
+- [Developer Guide](./developer-guide.md) - Information for developers who want to contribute
+- [Roadmap](./roadmap.md) - Future development plans and contribution opportunities
 
 ## Technical Details
 
