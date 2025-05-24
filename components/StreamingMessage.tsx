@@ -13,8 +13,15 @@ export default function StreamingMessage({ userMessage, model, onComplete }: Str
   const [isStreaming, setIsStreaming] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const eventSourceRef = useRef<EventSource | null>(null);
+  const streamedContentRef = useRef('');
 
   useEffect(() => {
+    // Reset state for new stream
+    setStreamedContent('');
+    setIsStreaming(true);
+    setError(null);
+    streamedContentRef.current = '';
+
     // Create messages array with user message
     const messages: Message[] = [
       { role: 'user', content: userMessage }
@@ -50,10 +57,10 @@ export default function StreamingMessage({ userMessage, model, onComplete }: Str
       const decoder = new TextDecoder();
 
       function processStream() {
-        reader.read().then(({ done, value }) => {
+        reader!.read().then(({ done, value }) => {
           if (done) {
             setIsStreaming(false);
-            onComplete(streamedContent);
+            onComplete(streamedContentRef.current);
             return;
           }
 
@@ -73,12 +80,13 @@ export default function StreamingMessage({ userMessage, model, onComplete }: Str
 
                 if (data.done) {
                   setIsStreaming(false);
-                  onComplete(streamedContent);
+                  onComplete(streamedContentRef.current);
                   return;
                 }
 
                 if (data.content) {
-                  setStreamedContent(prev => prev + data.content);
+                  streamedContentRef.current += data.content;
+                  setStreamedContent(streamedContentRef.current);
                 }
               } catch (err) {
                 console.error('Error parsing SSE message:', err, line);
@@ -88,6 +96,10 @@ export default function StreamingMessage({ userMessage, model, onComplete }: Str
 
           processStream();
         }).catch(err => {
+          // Don't show error for aborted requests (normal when component unmounts)
+          if (err.name === 'AbortError') {
+            return;
+          }
           console.error('Error reading stream:', err);
           setError('Error reading stream. Please try again.');
           setIsStreaming(false);
@@ -97,6 +109,10 @@ export default function StreamingMessage({ userMessage, model, onComplete }: Str
       processStream();
     })
     .catch(err => {
+      // Don't show error for aborted requests (normal when component unmounts)
+      if (err.name === 'AbortError') {
+        return;
+      }
       console.error('Error initiating streaming request:', err);
       setError('Failed to connect to Ollama. Make sure it is running.');
       setIsStreaming(false);
